@@ -62,7 +62,7 @@ function f()
                                           font-size: 16px;
                                           font-family:cursive;
                                   }
-                                  .hading{
+                                  .hading {
                                           padding:0 150px;
                                           float:right;
                                           color:#b0bed3;
