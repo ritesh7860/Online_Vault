@@ -1,38 +1,34 @@
 <html>
+
 <head>
 
      <style>
-                 body{
+          body {
 
-                        background-image: black;
-                        background-image: url('b.jpg');
-                        background-size: cover;
-                        background-attachment: fixed;
-                        }
-   </style>
+               background-image: black;
+               background-image: url('b.jpg');
+               background-size: cover;
+               background-attachment: fixed;
+          }
+     </style>
 </head>
+
 <body bgcolor="black">
 
-<table >
- 
-<?php
+     <table>
+          <?php
 
+          $link = mysqli_connect("localhost", "root", "", "freespace");
+          session_start();
+          $qry = "select* from updfiles where email='$_SESSION[email]'";
+          $s = mysqli_query($link, $qry);
+          while ($k = mysqli_fetch_assoc($s)) {
+               echo "<tr><img src='$k[uploadfiles]' height=200px width=200px /></tr>";
+          }
+          ?>
 
+     </table>
 
-     $link=mysqli_connect("localhost","root","","freespace");
-      session_start();
-     $qry="select* from updfiles where email='$_SESSION[email]'";
-   $s= mysqli_query($link,$qry);
-   while($k=mysqli_fetch_assoc($s))
-   {
-    echo "<tr><img src='$k[uploadfiles]' height=200px width=200px /></tr>";
-  
-  
-}
+</body>
 
- ?>  
-
-</table>
-
- </body>
 </html>
