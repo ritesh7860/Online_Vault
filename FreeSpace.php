@@ -1,3 +1,7 @@
+<?php
+include_once 'NavBar.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,145 +9,174 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FreeSpace</title>
+  <title>FreeSpace | Create Account</title>
+
+  <!-- Bootstrap -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+  <!-- JS Validation -->
   <script type="text/javascript">
     function f() {
-      var result = true;
-      var a = document.frm.fnm.value;
-      if (a == "") {
-        document.getElementById('nm1').innerHTML = "*Enter Name";
-        result = false;
-      } else {
-        document.getElementById('nm1').innerHTML = "";
-      }
-      a = document.frm.mail.value;
-      if (a == "") {
-        document.getElementById('mL').innerHTML = "*Enter Email";
-        result = false;
-      } else {
-        document.getElementById('mL').innerHTML = "";
-      }
+      let result = true;
+      let name = document.frm.fnm.value.trim();
+      let email = document.frm.mail.value.trim();
+      let pwd = document.frm.pwd1.value.trim();
 
-      a = document.frm.pwd1.value;
-      if (a == "") {
-        document.getElementById('pw').innerHTML = "*Enter Password";
-        result = false;
-      } else {
-        document.getElementById('pw').innerHTML = "";
-      }
+      document.getElementById('nm1').innerHTML = "";
+      document.getElementById('mL').innerHTML = "";
+      document.getElementById('pw').innerHTML = "";
 
+      if (name === "") {
+        document.getElementById('nm1').innerHTML = "* Please enter your name";
+        result = false;
+      }
+      if (email === "") {
+        document.getElementById('mL').innerHTML = "* Please enter your email";
+        result = false;
+      }
+      if (pwd === "") {
+        document.getElementById('pw').innerHTML = "* Please enter your password";
+        result = false;
+      }
       return result;
-
     }
   </script>
+
   <style>
     body {
-
-      background-image: black;
-      background-image: url('universe.jpg');
-      background-size: cover;
-      background-attachment: fixed;
+      background: url('universe.jpg') center center / cover no-repeat fixed;
+      font-family: 'Poppins', sans-serif;
+      color: #f5f7fa;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
 
-    .nav-item {
-      padding: 0 20px;
-      font-size: 16px;
-      font-family: cursive;
+    main {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding-right: 8%;
+      margin-top: 60px;
     }
 
-    .hading {
-      padding: 0 150px;
-      float: right;
-      color: #b0bed3;
-      font-size: 40px;
-      font-weight: 200;
-      font-family: cursive;
+    .register-card {
+      /* background: rgba(0, 0, 0, 0.7); */
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 40px 45px;
+      width: 100%;
+      max-width: 400px;
+      backdrop-filter: blur(6px);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+      text-align: left;
     }
 
-    .form {
-      color: #e5ecf7;
-      font-size: 16px;
-      position: absolute;
-      right: 200px;
-      bottom: 200px;
-      width: 20%;
-      height: 30%;
-      border: 0px solid #9fa591;
+    .register-card h2 {
+      font-weight: 600;
+      text-align: center;
+      margin-bottom: 30px;
+      color: #ffffff;
+      text-shadow: 0 0 8px rgba(255, 255, 255, 0.25);
     }
 
-    div form input[type=submit] {
-      border: 4px solid rgb(71, 80, 82);
-      background-color: #9fa591;
-      color: #171718;
-      font-size: 20px;
-      padding: 10px 30px;
-
-    }
-
-    div form input[type=text],
-    div form input[type=email],
-    div form input[type=password] {
+    .form-control {
       background-color: transparent;
-      color: white;
-
-
+      border: 1px solid #3b444b;
+      color: #f5f7fa;
+      font-size: 15px;
+      padding: 10px 15px;
+      border-radius: 8px;
+      transition: all 0.3s ease;
     }
 
-    div form input[type=text]:focus,
-    div form input[type=email]:focus {
-      border: 5px solid rgb(163, 170, 172);
+    .form-control:focus {
+      color: #bab0b0ff;
+      border-color: #1cb0f6;
+      box-shadow: 0 0 10px rgba(28, 176, 246, 0.5);
+      background-color: rgba(255, 255, 255, 0.05);
+    }
+      .form-control::placeholder{
+      color: #bab0b0ff ;
+    }
+
+
+    .error-text {
+      color: #ff7b7b;
+      font-size: 13px;
+      margin-top: 4px;
+    }
+
+    .btn-create {
+      background: linear-gradient(45deg, #00bfff, #007bff);
+      border: none;
+      color: #fff;
+      font-size: 17px;
+      font-weight: 500;
+      padding: 10px 0;
+      border-radius: 8px;
+      margin-top: 15px;
+      transition: 0.3s ease;
+      width: 100%;
+    }
+
+    .btn-create:hover {
+      background: linear-gradient(45deg, #0099ff, #00ccff);
+      transform: scale(1.02);
+    }
+
+    footer {
+      text-align: center;
+      color: #9caebf;
+      margin-top: 40px;
+      padding-bottom: 30px;
+      font-size: 14px;
+    }
+
+    @media (max-width: 768px) {
+      main {
+        justify-content: center;
+        padding: 20px;
+      }
+      .register-card {
+        width: 90%;
+      }
     }
   </style>
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="document.php">
-      <h2>FreeSpace</h2>
-    </a>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href="FreeSpace.php">HOME </a>
-        </li>
-        <li class="nav-item active">
-          <a class="nav-link" href="contact_us.php">CONTACT US</a>
-        </li>
-        <li class="nav-item active">
-          <a class="nav-link" href="privacy.php">PRIVACY</a>
-        </li>
-        <li class="nav-item active">
-          <a class="nav-link" href="login.php">LOGIN</a>
-        </li>
 
-      </ul>
-      <form class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+  <main>
+    <div class="register-card">
+      <h2>Create Your Own Space</h2>
+      <form method="post" name="frm" onsubmit="return f()">
+        <div class="form-group">
+          <label for="fnm">Full Name</label>
+          <input type="text" class="form-control" name="fnm" placeholder="Enter your full name">
+          <span id="nm1" class="error-text"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="mail">Email Address</label>
+          <input type="email" class="form-control" name="mail" placeholder="Enter your email">
+          <span id="mL" class="error-text"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="pwd1">Password</label>
+          <input type="password" class="form-control" name="pwd1" placeholder="Create password">
+          <span id="pw" class="error-text"></span>
+        </div>
+
+        <button type="submit" name="btn" class="btn-create">Create Account</button>
       </form>
     </div>
-  </nav>
-  <br> <br><br> <br>
-  <div class="hading">
-    Create Your Own Space
-  </div>
-  <div class="form">
-    <form align="center" method="post" name="frm" onsubmit="return f()"><br>
-      Name:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="fnm" placeholder="Full Name" /><b id="nm1"></b>
-      <hr>
-      </hr>
-      Email: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="email" name="mail" placeholder="Enter mail" /><b id="mL"></b>
-      <hr>
-      </hr>
-      Password:<input type="password" name="pwd1" placeholder="Password"><b id="pw"></b>
-      <hr>
-      </hr>
-      <input type="submit" name="btn" value="CREATE ACCOUNT">
-    </form>
-  </div>
+  </main>
+
 </body>
 
 </html>
@@ -152,14 +185,21 @@
 extract($_REQUEST);
 if (isset($btn)) {
   $link = mysqli_connect("localhost", "root", "", "freespace");
-  $qry = "insert into regdata values('$fnm','$mail','$pwd1')";
+  if (!$link) {
+    die("Database connection failed: " . mysqli_connect_error());
+  }
+
+  $qry = "INSERT INTO regdata (name, email, password) VALUES ('$fnm', '$mail', '$pwd1')";
   $r = mysqli_query($link, $qry);
 
+  echo '<div style="position:fixed;bottom:25px;left:50%;transform:translateX(-50%);text-align:center;">';
   if ($r) {
-    echo '<span style="color:green  ">your account has been created</span>';
+    echo '<span style="color:limegreen; font-size:18px;">Your account has been created successfully!</span>';
   } else {
-    echo   '<span style="color:red" style= "padding:1 100px">Try Again</span>';
+    echo '<span style="color:red; font-size:18px;">Error: Try again later.</span>';
   }
+  echo '</div>';
+
   mysqli_close($link);
 }
 ?>

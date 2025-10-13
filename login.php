@@ -1,154 +1,183 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login</title>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-  <script type="text/javascript">
-    function f1() {
-      var result = true;
-      var a = document.frm1.umail.value;
-      if (a == "") {
-        document.getElementById('nm').innerHTML = "*Enter Email";
-        result = false;
-      } else {
-        document.getElementById('nm').innerHTML = "";
-      }
-      a = document.frm1.pass.value;
-      if (a == "") {
-        document.getElementById('pd').innerHTML = "*Enter Password";
-        result = false;
-      } else {
-        document.getElementById('pw').innerHTML = "";
-      }
-      return result;
-    }
-  </script>
-  <style>
-    body {
-
-      background-image: black;
-      background-image: url('login-bg.jpg');
-      background-size: cover;
-      background-attachment: fixed;
-
-
-    }
-
-    input,
-    select,
-    textarea {
-      color: white;
-    }
-
-    .nav-item {
-      padding: 0 20px;
-      font-size: 16px;
-      font-family: cursive;
-    }
-
-    .form {
-      color: #e5ecf7;
-      font-size: 16px;
-      position: absolute;
-      right: 550px;
-      bottom: 170px;
-      width: 20%;
-      height: 38%;
-      border: 0px solid gray;
-
-    }
-
-    div form input[type=submit] {
-      border: 4px solid rgb(71, 80, 82);
-      background-color: #9fa591;
-      color: #171718;
-      font-size: 20px;
-      padding: 10px 30px;
-    }
-
-    div form input[type=email],
-    div form input[type=password] {
-
-      background-color: transparent;
-      font-size: 16px;
-    }
-
-    hr {
-      border-top: 3px solid rgb(138, 153, 156);
-    }
-
-    div form input[type=email]:focus,
-    div form input[type=password]:focus {
-      border: 5px solid rgb(163, 170, 172);
-    }
-  </style>
-</head>
-
-<body>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="document.php">
-      <h2>FreeSpace</h2>
-    </a>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href="FreeSpace.php">HOME </a>
-        </li>
-        <li class="nav-item active">
-          <a class="nav-link" href="contact_us.php">CONTACT US</a>
-        </li>
-        <li class="nav-item active">
-          <a class="nav-link" href="privacy.php">PRIVACY</a>
-        </li>
-      </ul>
-      <form class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-      </form>
-    </div>
-  </nav>
-  <div class="form">
-    <form align="center" name="frm1" onsubmit="return f1()">
-      <img src="login icon.png" height="100px" width="100px"><br>
-      <hr>
-      </hr><br>
-      <table>
-        Email:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="email" placeholder=" Email" name="umail" /> <b id="nm"></b> <br>
-        <hr>
-        </hr><br>
-        Password:<input type="password" placeholder=" Password" name="pass"> <b id="pd"></b><br>
-        <hr>
-        </hr><br>
-        <input type="submit" name="logBtn" value="Login">
-      </table>
-    </form>
-  </div>
-</body>
-
-</html>
 <?php
+include_once 'NavBar.php';
+
 extract($_REQUEST);
 if (isset($logBtn)) {
   $link = mysqli_connect("localhost", "root", "", "freespace");
-  $qry = "select email from regdata where email='$umail' and  password='$pass'";
+  $qry = "SELECT email FROM regdata WHERE email='$umail' AND password='$pass'";
   $r = mysqli_query($link, $qry);
   $c = mysqli_num_rows($r);
   if ($c == 1) {
-    $qry = "select sum(fsize) from updfiles where email='$umail'";
+    $qry = "SELECT SUM(fsize) FROM updfiles WHERE email='$umail'";
     $r = mysqli_query($link, $qry);
     $a = mysqli_fetch_row($r);
     session_start();
     $_SESSION['email'] = $umail;
     $_SESSION['filesize'] = $a[0];
     header("location:updfile.php");
-    echo $a[0];
+    exit;
   } else {
-    echo "Invalid email or password";
+    $error = "Invalid email or password";
   }
 }
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login | freeSpace</title>
+
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: url('login-bg.jpg') no-repeat center center fixed;
+      background-size: cover;
+      font-family: "Poppins", sans-serif;
+      color: #fff;
+    }
+
+    .overlay {
+      background: rgba(0, 0, 0, 0.6);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 30px;
+    }
+
+    .login-card {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 16px;
+      padding: 40px 35px;
+      width: 100%;
+      max-width: 400px;
+      box-shadow: 0 0 25px rgba(0, 0, 0, 0.4);
+    }
+
+    .login-card img {
+      width: 90px;
+      height: 90px;
+      display: block;
+      margin: 0 auto 20px;
+      filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
+    }
+
+    .login-card h2 {
+      text-align: center;
+      color: #b0bed3;
+      margin-bottom: 20px;
+      font-weight: 600;
+      font-size: 1.8rem;
+    }
+
+    .form-control {
+      background-color: transparent; 
+      border: 1px solid #3b444b;
+      color: #f5f7fa;
+      font-size: 15px;
+      padding: 10px 15px;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+    }
+
+    .form-control:focus {
+      color: #bab0b0ff;
+      border-color: #1cb0f6;
+      box-shadow: 0 0 10px rgba(28, 176, 246, 0.5);
+      background-color: rgba(255, 255, 255, 0.05);
+    }
+
+    .form-control::placeholder{
+      color: #bab0b0ff ;
+    }
+
+    .btn-login {
+      width: 100%;
+      background-color: #88c0d0;
+      border: none;
+      padding: 10px;
+      font-size: 1.1rem;
+      border-radius: 8px;
+      color: #1b1b1b;
+      font-weight: 600;
+      transition: background 0.3s ease;
+    }
+
+    .btn-login:hover {
+      background-color: #a6dcef;
+    }
+
+    .error-msg {
+      color: #ffb3b3;
+      text-align: center;
+      margin-bottom: 15px;
+      font-weight: 500;
+    }
+
+    hr {
+      border-top: 2px solid rgba(255, 255, 255, 0.2);
+      margin: 20px 0;
+    }
+
+    @media (max-width: 480px) {
+      .login-card {
+        padding: 30px 20px;
+      }
+    }
+  </style>
+
+  <script>
+    function validateForm() {
+      let email = document.forms["frm1"]["umail"].value;
+      let pass = document.forms["frm1"]["pass"].value;
+      let valid = true;
+
+      document.getElementById("emailError").innerHTML = "";
+      document.getElementById("passError").innerHTML = "";
+
+      if (email.trim() === "") {
+        document.getElementById("emailError").innerHTML = "* Enter Email";
+        valid = false;
+      }
+      if (pass.trim() === "") {
+        document.getElementById("passError").innerHTML = "* Enter Password";
+        valid = false;
+      }
+
+      return valid;
+    }
+  </script>
+</head>
+
+<body>
+  <div class="overlay">
+    <div class="login-card">
+      <img src="login icon.png" alt="Login Icon">
+      <h2>Member Login</h2>
+      <hr>
+      <?php if (isset($error)) echo "<div class='error-msg'>$error</div>"; ?>
+
+      <form name="frm1" method="post" onsubmit="return validateForm()">
+        <div class="mb-3">
+          <input type="email" class="form-control" name="umail" placeholder="Email">
+          <small id="emailError" class="text-danger"></small>
+        </div>
+
+        <div class="mb-3">
+          <input type="password" class="form-control" name="pass" placeholder="Password">
+          <small id="passError" class="text-danger"></small>
+        </div>
+
+        <button type="submit" name="logBtn" class="btn-login mt-2">Login</button>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

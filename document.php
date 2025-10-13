@@ -1,3 +1,7 @@
+<?php
+include_once 'NavBar.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,122 +9,161 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>About - FreeSpace</title>
+
+  <!-- Bootstrap 4 -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
   <style>
     body {
-
-
-      background-image: url('s2.jpg');
-
+      background: linear-gradient(to right, rgba(0, 0, 0, 0.7), rgba(30, 30, 30, 0.7)), url('s2.jpg') no-repeat center center fixed;
       background-size: cover;
-      background-attachment: fixed;
-    }
-
-    .hading {
-      padding: 0 520px;
-      float: right;
       color: #f5f7fa;
-      font-size: 40px;
-      font-weight: 200;
-      font-family: cursive;
+      font-family: 'Poppins', cursive;
+      min-height: 100vh;
     }
 
-    .nav-item {
-      padding: 0 20px;
-      font-size: 16px;
-      font-family: cursive;
+    .heading {
+      text-align: center;
+      margin-top: 80px;
+    }
+
+    .heading h1 {
+      font-size: 48px;
+      font-weight: 600;
+      color: #ffffff;
+      text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.6);
     }
 
     hr {
-      border-top: 3px solid rgb(138, 153, 156);
+      width: 100px;
+      border-top: 4px solid #17a2b8;
+      margin: 20px auto;
     }
 
     .task {
-
-      color: #f3f5f7;
-
-      background-size: cover;
+      text-align: center;
+      margin: 50px auto;
+      max-width: 700px;
+      font-size: 18px;
+      line-height: 1.8;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
     }
 
-    .developer {
+    .developer-title {
+      text-align: center;
+      margin-top: 60px;
       color: #b0bed3;
     }
 
-    .team1 {
-      color: #b0bed3;
-      padding: 0px 100px;
+    .developer-cards {
+      margin-top: 40px;
     }
 
-    .team2 {
-      color: #b0bed3;
-      position: absolute;
-      right: 5px;
-      bottom: 100px;
-      width: 20%;
-      height: 10%;
-      border: 0px solid #9fa591;
+    .card {
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      border-radius: 15px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      color: #fff;
+    }
 
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 4px 20px rgba(255, 255, 255, 0.3);
+    }
+
+    .card img {
+      border-radius: 50%;
+      height: 100px;
+      width: 100px;
+      object-fit: cover;
+      margin: 20px auto 10px;
+    }
+
+    .card-body {
+      text-align: center;
+    }
+
+    footer {
+      text-align: center;
+      color: #9caebf;
+      margin-top: 60px;
+      padding-bottom: 30px;
     }
   </style>
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">
-      <h2>FreeSpace</h2>
-    </a>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href="FreeSpace.php">HOME </a>
-        </li>
-        <li class="nav-item active">
-          <a class="nav-link" href="contact_us.php">CONTACT US</a>
-        </li>
-        <li class="nav-item active">
-          <a class="nav-link" href="privacy.php">PRIVACY</a>
-        </li>
-        <li class="nav-item active">
-          <a class="nav-link" href="login.php">LOGIN</a>
-        </li>
+  <div class="container">
 
-      </ul>
-      <form class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-      </form>
+    <!-- Heading -->
+    <div class="heading">
+      <h1>Who Are We!</h1>
+      <hr>
     </div>
-  </nav>
-  <div class="hading">
-    Who Are We !
-    <hr><br></hr>
+
+    <!-- About Section -->
+    <div class="task">
+      <h4>1. FreeSpace helps you securely store your personal and important data.</h4>
+      <h4>2. Access your data from anywhere, anytime.</h4>
+      <h4>3. We ensure top-notch security and privacy for your information.</h4>
+    </div>
+
+    <!-- Developer Section -->
+    <div class="developer-title">
+      <h2>FreeSpace Developers</h2>
+      <hr>
+    </div>
+
+    <div class="row developer-cards justify-content-center">
+      <div class="col-md-3 col-sm-6 mb-4">
+        <div class="card">
+          <img src="priyanshu.jpg" alt="Priyanshu">
+          <div class="card-body">
+            <h5>Priyanshu Agnihotri</h5>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3 col-sm-6 mb-4">
+        <div class="card">
+          <img src="pranjul.jpeg" alt="Pranjul">
+          <div class="card-body">
+            <h5>Pranjul Shrivastava</h5>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3 col-sm-6 mb-4">
+        <div class="card">
+          <img src="sahil.jpeg" alt="Sahil">
+          <div class="card-body">
+            <h5>Sahil Shrivastava</h5>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3 col-sm-6 mb-4">
+        <div class="card">
+          <img src="ritesh.jpeg" alt="Ritesh">
+          <div class="card-body">
+            <h5>Ritesh Singh</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <p>© 2025 FreeSpace | All rights reserved.</p>
+    </footer>
+
   </div>
-  <div class="task" align="center">
-    <h3>1.FreeSpace is all about to save your personal and Important data<br><br>
-      2.You can access your data from anywhere<br><br>
-      3.FreeSpace provides security to your data </h3><br>
-  </div>
-  <div align="center" class="developer">
-    <h2>FreeSpace Developers</h2>
-  </div>
-  <hr>
-  </hr>
-
-  <div class="team1"><img src="priyanshu.jpg" height="50px" width="50px">: Priyanshu Agnihotri<br><br>
-    <img src="pranjul.jpeg" height="50px" width="50px">:Pranjul Shrivastava
-  </div> <br><br>
-  <div class="team2"><img src="" height="50px" width="50px">:Sahil Shrivastava <br><br>
-    <img src="ritesh.jpeg" height="50px" width="50px">:Ritesh Singh
-  </div>
-
-
-
-
-
-
 </body>
 
 </html>
