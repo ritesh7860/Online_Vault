@@ -20,6 +20,7 @@ include_once 'NavBar.php';
       background-size: cover;
       font-family: "Poppins", sans-serif;
       color: #d9e4f0;
+      margin-top: 3%;
     }
 
     .overlay {

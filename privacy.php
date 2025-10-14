@@ -21,6 +21,7 @@ include_once 'NavBar.php';
       background: url('s2.jpg') no-repeat center center fixed;
       background-size: cover;
       font-family: "Poppins", sans-serif;
+      margin-top: 3%;
       color: #d9e4f0;
     }
 

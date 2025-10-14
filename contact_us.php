@@ -20,6 +20,7 @@ include_once 'NavBar.php';
       color: #b0bed3;
       font-family: 'Poppins', sans-serif;
       margin: 0;
+      margin-top: 5%;
       padding: 0;
       min-height: 100vh;
       display: flex;
