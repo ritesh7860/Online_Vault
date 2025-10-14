@@ -142,7 +142,7 @@ include_once 'NavBar.php';
 
       <div class="col-md-3 col-sm-6 mb-4">
         <div class="card">
-          <img src="sahil.jpeg" alt="Sahil">
+          <img src="https://cdn-icons-png.flaticon.com/512/847/847969.png" alt="https://cdn-icons-png.flaticon.com/512/847/847969.png">
           <div class="card-body">
             <h5>Sahil Shrivastava</h5>
           </div>

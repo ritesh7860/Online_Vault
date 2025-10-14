@@ -1,3 +1,7 @@
+<?php
+include_once 'NavBar.php';
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,143 +9,210 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>File Manager</title>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <title>FreeSpace | File Manager</title>
+
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Animate on Scroll -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
+
   <style>
     body {
-
-      background-image: black;
-      background-image: url('globe.png');
-      background-size: cover;
-      background-attachment: fixed;
+      background: url('globe.png') center center / cover no-repeat fixed;
+      font-family: 'Poppins', sans-serif;
+      color: #eaf1f9;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      overflow-x: hidden;
     }
 
-    .nav-item {
-      padding: 0 20px;
-      font-size: 16px;
-      font-family: cursive;
-    }
-
-    .hading {
-      padding: 0 500px;
-      float: right;
+    .heading {
+      text-align: center;
+      font-size: 2.5rem;
+      font-weight: 600;
       color: #b0bed3;
-      font-size: 40px;
-      font-weight: 100px;
-      font-family: cursive;
+      margin-bottom: 40px;
+      text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+      animation: fadeInDown 1s ease-in-out;
     }
 
-    .form {
-      color: #e5ecf7;
-      font-size: 16px;
-      position: absolute;
-      right: 35%;
-      bottom: 1%;
-      width: 20%;
-      height: 38%;
-      border: 0px solid gray;
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
 
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .upload-card {
+      background: rgba(0, 0, 0, 0.65);
+      border-radius: 16px;
+      padding: 40px 35px;
+      max-width: 420px;
+      width: 100%;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 8px 35px rgba(0, 0, 0, 0.6);
+      animation: fadeInUp 1s ease-in-out;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    label {
+      font-weight: 500;
+      color: #cfd9e5;
+    }
+
+    .form-control {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #fff;
+      border-radius: 8px;
+      padding: 10px;
+      transition: 0.3s ease;
+    }
+
+    .form-control:focus {
+      border-color: #00bfff;
+      box-shadow: 0 0 10px rgba(0, 191, 255, 0.5);
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .btn-upload {
+      width: 100%;
+      background: linear-gradient(45deg, #007bff, #00bfff);
+      border: none;
+      color: #fff;
+      font-size: 17px;
+      font-weight: 500;
+      border-radius: 8px;
+      padding: 10px 0;
+      margin-top: 15px;
+      transition: 0.3s;
+    }
+
+    .btn-upload:hover {
+      transform: scale(1.03);
+      background: linear-gradient(45deg, #00aaff, #0099ff);
+    }
+
+    .rocket {
+      width: 130px;
+      animation: float 3s ease-in-out infinite;
+      display: block;
+      margin: 0 auto 20px auto;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-10px);
+      }
+
+      100% {
+        transform: translateY(0);
+      }
+    }
+
+    .status {
+      text-align: center;
+      margin-top: 15px;
+      font-size: 15px;
+    }
+
+    @media (max-width: 768px) {
+      .upload-card {
+        margin: 20px;
+        padding: 30px;
+      }
+
+      .heading {
+        font-size: 2rem;
+      }
     }
   </style>
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="document.php">
-      <h2>FreeSpace</h2>
-    </a>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href="FreeSpace.php">HOME </a>
-        </li>
-        <li class="nav-item active">
-          <a class="nav-link" href="contact_us.php">CONTACT US</a>
-        </li>
-        <li class="nav-item active">
-          <a class="nav-link" href="privacy.php">PRIVACY</a>
-        </li>
-        <li class="nav-item active">
-          <form> <input style=background-color:#635f5b;color:aliceblue type="submit" name="logBtn" value="LOGOUT"></form>
-        </li>
-      </ul>
-      <form class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-      </form>
-    </div>
-  </nav><br>
 
-  <div class="hading">
-    Go To Your Space<br><br>
-    &nbsp; &nbsp; &nbsp; <a href="ufiles.php"><img src="rocket.png" height="150px" width="150px"></a>
+  <div class="heading animate__animated animate__fadeInDown">
+    Go To Your Space
   </div>
-  <div class="form">
+
+  <div class="upload-card animate__animated animate__fadeInUp">
+    <a href="ufiles.php">
+      <img src="rocket.png" alt="Rocket" class="rocket">
+    </a>
     <form enctype="multipart/form-data" method="post">
-      <input type="file" id="myfile" name="filename"> <br><br>
-      &nbsp; &nbsp; &nbsp;<input type="submit" id="myfile" name="sub" value="UPLOAD">
+      <div class="mb-3">
+        <label for="myfile" class="form-label">Select File</label>
+        <input type="file" class="form-control" id="myfile" name="filename" required>
+      </div>
+      <button type="submit" name="sub" class="btn-upload">Upload File</button>
+    </form>
 
-
-
-
+    <div class="status">
       <?php
-      session_start();
       extract($_REQUEST);
-      $imgpath = "";
       if (isset($sub)) {
+        $link = mysqli_connect("localhost", "root", "", "freespace");
+        if (!$link) {
+          die("<span style='color:red;'>Database Connection Failed</span>");
+        }
 
         $tmpPath = $_FILES['filename']['tmp_name'];
-
-
-
         $finalPath = "uploaded data/" . $_FILES['filename']['name'];
-        $t = $_SESSION['filesize'];
-
+        $t = $_SESSION['filesize'] ?? 0;
         $remsize = 52428800 - $t;
 
-        if ($_FILES['filename']['size']  <= $remsize) {
-
+        if ($_FILES['filename']['size'] <= $remsize) {
           if ($_FILES['filename']['error'] == 0) {
-
-
-            $e = explode(".", $_FILES['filename']['name']);
-            $s = $_FILES['filename']['size'];
             move_uploaded_file($tmpPath, $finalPath);
+            $imgpath = $finalPath;
+            $size = $_FILES['filename']['size'];
 
-            $imgpath =  $finalPath;
-            $size = $s;
-
-            $link = mysqli_connect("localhost", "root", "", "freespace");
-            //  session_start();
-            $qry = "insert into updfiles values('$_SESSION[email]','$imgpath','$size',curdate())";
-            //$qry="update regdata set uploadfiles='$imgpath' where email='$_SESSION[email]'";
+            $qry = "INSERT INTO updfiles (email, filepath, size, date) VALUES ('$_SESSION[email]', '$imgpath', '$size', CURDATE())";
             $r = mysqli_query($link, $qry);
 
             if ($r) {
-
-
-              echo '<span style="color:green  ">File Uploaded Successfully......</span>';
+              echo "<span style='color:#00ff99;'>✅ File Uploaded Successfully!</span>";
+            } else {
+              echo "<span style='color:red;'>⚠️ Upload Failed. Try again later.</span>";
             }
           }
+        } else {
+          echo "<span style='color:orange;'>⚠️ File size exceeds remaining limit.</span>";
         }
-        echo "remaining size=", $remsize, "_bites";
-      }
 
-      ?>
+        echo "<br><small style='color:#b0c7d1;'>Remaining space: " . round($remsize / 1024, 2) . " KB</small>";
 
-
-      <?php
-      extract($_REQUEST);
-      if (isset($logBtn)) {
-        session_destroy();
-        header("location:login.php");
+        mysqli_close($link);
       }
       ?>
-
-    </form>
+    </div>
   </div>
+
 </body>
 
 </html>

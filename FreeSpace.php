@@ -46,33 +46,53 @@ include_once 'NavBar.php';
 
   <style>
     body {
-      background: url('universe.jpg') center center / cover no-repeat fixed;
+      background: url('login-bg.jpg') no-repeat center center/cover;
       font-family: 'Poppins', sans-serif;
       color: #f5f7fa;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
+      overflow-x: hidden;
+    }
+    .overlay {
+      background: rgba(34, 33, 33, 0.7);
+      position: absolute;
+      inset: 0;
+      z-index: -1;
     }
 
     main {
       flex: 1;
       display: flex;
       align-items: center;
-      justify-content: flex-end;
-      padding-right: 8%;
-      margin-top: 60px;
+      justify-content: center;
+      padding: 80px 15px;
+    }
+
+    /* Fade-in and scale animation */
+    @keyframes fadeInUp {
+      0% {
+        opacity: 0;
+        transform: translateY(30px) scale(0.95);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
     }
 
     .register-card {
-      /* background: rgba(0, 0, 0, 0.7); */
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 12px;
+      background: rgba(0, 0, 0, 0.75);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 16px;
       padding: 40px 45px;
       width: 100%;
-      max-width: 400px;
-      backdrop-filter: blur(6px);
-      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+      max-width: 420px;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
       text-align: left;
+      opacity: 0;
+      animation: fadeInUp 0.8s ease forwards;
     }
 
     .register-card h2 {
@@ -84,7 +104,7 @@ include_once 'NavBar.php';
     }
 
     .form-control {
-      background-color: transparent;
+      background-color: rgba(255, 255, 255, 0.05);
       border: 1px solid #3b444b;
       color: #f5f7fa;
       font-size: 15px;
@@ -94,15 +114,15 @@ include_once 'NavBar.php';
     }
 
     .form-control:focus {
-      color: #bab0b0ff;
+      color: #fff;
       border-color: #1cb0f6;
       box-shadow: 0 0 10px rgba(28, 176, 246, 0.5);
-      background-color: rgba(255, 255, 255, 0.05);
-    }
-      .form-control::placeholder{
-      color: #bab0b0ff ;
+      background-color: rgba(255, 255, 255, 0.1);
     }
 
+    .form-control::placeholder {
+      color: #bbb;
+    }
 
     .error-text {
       color: #ff7b7b;
@@ -118,14 +138,35 @@ include_once 'NavBar.php';
       font-weight: 500;
       padding: 10px 0;
       border-radius: 8px;
-      margin-top: 15px;
-      transition: 0.3s ease;
+      margin-top: 20px;
+      transition: all 0.3s ease;
       width: 100%;
+      box-shadow: 0 0 10px rgba(0, 191, 255, 0.4);
     }
 
     .btn-create:hover {
       background: linear-gradient(45deg, #0099ff, #00ccff);
-      transform: scale(1.02);
+      transform: translateY(-2px) scale(1.03);
+      box-shadow: 0 0 15px rgba(0, 191, 255, 0.6);
+    }
+
+    .login-link {
+      text-align: center;
+      margin-top: 18px;
+      font-size: 15px;
+      color: #d0e2f5;
+      opacity: 0;
+      animation: fadeInUp 0.8s ease 0.3s forwards;
+    }
+
+    .login-link a {
+      color: #1cb0f6;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .login-link a:hover {
+      text-decoration: underline;
     }
 
     footer {
@@ -137,18 +178,17 @@ include_once 'NavBar.php';
     }
 
     @media (max-width: 768px) {
-      main {
-        justify-content: center;
-        padding: 20px;
-      }
       .register-card {
-        width: 90%;
+        padding: 30px 25px;
+        width: 100%;
+        max-width: 90%;
       }
     }
   </style>
 </head>
 
 <body>
+    <div class="overlay"></div>
 
   <main>
     <div class="register-card">
@@ -173,6 +213,10 @@ include_once 'NavBar.php';
         </div>
 
         <button type="submit" name="btn" class="btn-create">Create Account</button>
+
+        <div class="login-link">
+          Already have an account? <a href="login.php">Login here</a>
+        </div>
       </form>
     </div>
   </main>
