@@ -158,7 +158,7 @@ $name = $isLoggedIn ? $_SESSION['name'] ?? 'User' : '';
               </a>
               <ul class="dropdown-menu dropdown-menu-end">
                 <li><a class="dropdown-item" href="profile.php">Profile</a></li>
-                <li><a class="dropdown-item" href="updfile.php">Your Space</a></li>
+                <li><a class="dropdown-item" href="Multimedia.php">Your Space</a></li>
                 <li><hr class="dropdown-divider"></li>
                 <li><a class="dropdown-item" href="logout.php">Logout</a></li>
               </ul>
@@ -166,7 +166,7 @@ $name = $isLoggedIn ? $_SESSION['name'] ?? 'User' : '';
 
             <!-- Mobile version: show as normal nav items -->
             <li class="nav-item d-lg-none"><a class="nav-link" href="profile.php">Profile</a></li>
-            <li class="nav-item d-lg-none"><a class="nav-link" href="updfile.php">Your Space</a></li>
+            <li class="nav-item d-lg-none"><a class="nav-link" href="Multimedia.php">Your Space</a></li>
             <li class="nav-item d-lg-none"><a class="nav-link" href="logout.php">Logout</a></li>
           <?php else: ?>
             <li class="nav-item"><a class="nav-link" href="login.php">Login</a></li>

@@ -1,6 +1,6 @@
 <?php
-include_once 'NavBar.php';
 session_start();
+include_once 'NavBar.php';
 ?>
 
 <!DOCTYPE html>
@@ -9,21 +9,20 @@ session_start();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Files | FreeSpace</title>
+    <title>Your Uploads | FreeSpace</title>
 
-    <!-- Bootstrap CSS -->
-    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"> -->
+    <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 
     <style>
         body {
-            background: url('sky.jpg') no-repeat center center fixed;
+            background: #000 url('sky.jpg') no-repeat center center fixed;
             background-size: cover;
             font-family: 'Poppins', sans-serif;
-            min-height: 100vh;
             color: #fff;
-            padding-top: 80px;
-            margin-top: 2%;
+            min-height: 100vh;
+            padding-top: 90px;
+            margin: 0;
         }
 
         .page-header {
@@ -34,52 +33,52 @@ session_start();
 
         .file-gallery {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 25px;
             padding: 0 5%;
         }
 
         .file-card {
             position: relative;
-            background: rgba(255, 255, 255, 0.12);
+            background: rgba(255, 255, 255, 0.08);
             border-radius: 15px;
             overflow: hidden;
             text-align: center;
             backdrop-filter: blur(10px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             animation: fadeUp 0.8s ease-in-out;
         }
 
         .file-card:hover {
             transform: scale(1.05);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.8);
         }
 
-        .file-card img {
+        .file-card img,
+        .file-card video,
+        .file-card audio,
+        .file-card iframe {
             width: 100%;
             height: 180px;
             object-fit: cover;
-            border-radius: 10px;
+            background: #111;
         }
 
         .file-card p {
             margin-top: 10px;
             font-weight: 500;
             font-size: 15px;
-            color: #e8e8e8;
+            color: #f0f0f0;
             word-break: break-word;
             padding-bottom: 15px;
         }
 
-        /* Overlay for hover buttons */
+        /* Hover Overlay */
         .file-overlay {
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.6);
+            inset: 0;
+            background: rgba(0, 0, 0, 0.65);
             opacity: 0;
             display: flex;
             align-items: center;
@@ -93,7 +92,7 @@ session_start();
         }
 
         .file-btn {
-            background-color: #007bff;
+            background-color: #0d6efd;
             border: none;
             color: #fff;
             padding: 8px 14px;
@@ -104,7 +103,7 @@ session_start();
         }
 
         .file-btn:hover {
-            background-color: #0056b3;
+            background-color: #0b5ed7;
         }
 
         .file-btn.delete {
@@ -112,7 +111,7 @@ session_start();
         }
 
         .file-btn.delete:hover {
-            background-color: #b02a37;
+            background-color: #bb2d3b;
         }
 
         @keyframes fadeUp {
@@ -126,15 +125,37 @@ session_start();
                 transform: translateY(0);
             }
         }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .file-card img,
+            .file-card video {
+                height: 140px;
+            }
+
+            .file-btn {
+                padding: 6px 10px;
+                font-size: 13px;
+            }
+        }
     </style>
 </head>
 
 <body>
-
     <div class="container">
         <div class="page-header">
-            <h2>Welcome to Your File Space</h2>
-            <p>Hover over your files to view, download, or delete them.</p>
+            <h2>Welcome to Your Uploads</h2>
+            <p>Hover over a file to view, download, or delete it.</p>
         </div>
 
         <div class="file-gallery">
@@ -153,10 +174,24 @@ session_start();
                     while ($file = mysqli_fetch_assoc($result)) {
                         $filepath = $file['filepath'];
                         $filename = basename($filepath);
+                        $ext = strtolower(pathinfo($filepath, PATHINFO_EXTENSION));
+
+                        // Preview based on file type
+                        if (in_array($ext, ['jpg', 'jpeg', 'png', 'gif'])) {
+                            $preview = "<img src='$filepath' alt='Image'>";
+                        } elseif (in_array($ext, ['mp4', 'webm', 'ogg'])) {
+                            $preview = "<video src='$filepath' controls></video>";
+                        } elseif ($ext === 'pdf') {
+                            $preview = "<iframe src='$filepath' frameborder='0'></iframe>";
+                        } elseif (in_array($ext, ['mp3', 'wav'])) {
+                            $preview = "<audio controls><source src='$filepath'></audio>";
+                        } else {
+                            $preview = "<div style='height:180px;display:flex;align-items:center;justify-content:center;background:#111;'>Unknown file</div>";
+                        }
 
                         echo "
                         <div class='file-card'>
-                            <img src='$filepath' alt='File Image'>
+                            $preview
                             <div class='file-overlay'>
                                 <button class='file-btn' onclick=\"viewFile('$filepath')\">View</button>
                                 <a href='$filepath' download class='file-btn'>Download</a>
@@ -176,15 +211,12 @@ session_start();
                 echo "<p style='text-align:center; color:#ccc;'>Please log in to view your files.</p>";
             }
 
-            // Delete file functionality
+            // Delete functionality
             if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_file'])) {
                 $deleteFile = $_POST['delete_file'];
-
-                // Remove from DB
                 $delQry = "DELETE FROM updfiles WHERE email='$email' AND filepath='$deleteFile'";
                 mysqli_query($link, $delQry);
 
-                // Delete from server
                 if (file_exists($deleteFile)) {
                     unlink($deleteFile);
                 }
@@ -195,31 +227,30 @@ session_start();
         </div>
     </div>
 
-
-    <!-- View File Modal -->
-    <div class="modal fade" id="viewModal" tabindex="-1" aria-labelledby="viewModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered">
-            <div class="modal-content bg-dark text-white">
-                <div class="modal-header border-0">
-                    <h5 class="modal-title" id="viewModalLabel">File Preview</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
-                        aria-label="Close"></button>
-                </div>
-                <div class="modal-body text-center">
-                    <img id="previewImage" src="" class="img-fluid rounded" alt="Preview">
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
     <script>
         function viewFile(path) {
-            document.getElementById('previewImage').src = path;
-            const modal = new bootstrap.Modal(document.getElementById('viewModal'));
-            modal.show();
+            const ext = path.split('.').pop().toLowerCase();
+            let content = '';
+
+            if (['jpg', 'jpeg', 'png', 'gif'].includes(ext)) {
+                content = `<img src="${path}" style="width:100%;border-radius:10px;">`;
+            } else if (['mp4', 'webm', 'ogg'].includes(ext)) {
+                content = `<video controls style="width:100%;border-radius:10px;"><source src="${path}"></video>`;
+            } else if (ext === 'pdf') {
+                content = `<iframe src="${path}" style="width:100%;height:80vh;border:none;"></iframe>`;
+            } else if (['mp3', 'wav'].includes(ext)) {
+                content = `<audio controls style="width:100%;"><source src="${path}"></audio>`;
+            } else {
+                content = `<p>Preview not available</p>`;
+            }
+
+            const modalWindow = window.open('', '_blank', 'width=800,height=600');
+            modalWindow.document.write(`
+                <html>
+                <head><title>Preview</title></head>
+                <body style="margin:0;background:#000;display:flex;align-items:center;justify-content:center;">${content}</body>
+                </html>
+            `);
         }
     </script>
 

@@ -16,7 +16,7 @@ if (isset($logBtn)) {
     $_SESSION['name'] = $row['name'];
     $_SESSION['email'] = $umail;
     $_SESSION['filesize'] = $a[0];
-    header("location:updfile.php");
+    header("location:Multimedia.php");
     exit;
   } else {
     $error = "Invalid email or password";
